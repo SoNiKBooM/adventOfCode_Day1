@@ -1,0 +1,88 @@
+<html>
+
+<head>
+
+</head>
+
+<script>
+
+function getAnswer() {
+
+var input = document.getElementById("input").value;
+var instructions = [],
+    x = 0,
+    y = 0,
+    facing = 0;
+instructions = input.split(', ');
+
+instructions.forEach(function(instruction) {
+    //splits it into a direction and a Distance
+    var direction = instruction[0],
+        distance = Number(instruction.substring(1));
+
+
+
+    //change facing direction
+    switch(direction){
+        case 'R':
+            facing++;
+            break;
+        case 'L':
+            facing--;
+            break;
+    }
+
+    // handle Left facing 
+    while(facing < 0) {
+        facing = facing + 4;
+    }
+
+    facing = facing % 4;
+
+    //do the move
+    switch(facing) {
+        case 0:
+            y = y+distance;
+            break;
+        case 1:
+            x = x+distance;
+            break;
+        case 2:
+            y = y-distance;
+            break;
+        case 3:
+            x = x-distance;
+            break;
+    }
+
+    
+});
+
+//we now have a total X and Y from end
+x = Math.abs(x);
+y = Math.abs(y);
+
+var total = x+y;
+
+document.getElementById("answer").innerHTML = "The answer is: " + total;
+
+}
+
+</script>
+
+<body>
+
+
+
+<form action="javascript:getAnswer();">
+  Input: <input id="input" type="text" name="input">
+</form>
+
+<p id ="answer"></p>
+
+
+
+</body>
+
+
+</html>
